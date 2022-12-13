@@ -1,0 +1,7 @@
+.dialog {
+  display: block;
+}
+
+.active {
+  color: gold;
+}
