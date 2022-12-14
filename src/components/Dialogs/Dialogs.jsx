@@ -12,10 +12,34 @@ function Dialogs(props) {
     <Message message={el.message} id={el.id} key={el.id} />
   ));
 
+  const newMessageElement = React.createRef();
+
+  const messageAdd = () => {
+    props.addMessage();
+  };
+
+  const onPostChange = () => {
+    const text = newMessageElement.current.value;
+    props.updateNewMessageText(text);
+  };
+
   return (
     <div className={classes.dialogs}>
       <div className={classes.dialogs_items}>{dialogsElement}</div>
       <div className={classes.messages}>{messagesElement}</div>
+      {/* homework */}
+      <div>
+        <div>
+          <textarea
+            ref={newMessageElement}
+            value={props.state.newMessageText}
+            onChange={onPostChange}
+          />
+        </div>
+        <div>
+          <button onClick={messageAdd}>Add text</button>
+        </div>
+      </div>
     </div>
   );
 }
