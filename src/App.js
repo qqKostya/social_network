@@ -19,7 +19,7 @@ const App = (props) => {
             path="/profile"
             element={
               <Profile
-                state={props.state.profilePage}
+              profilePage={props.state.profilePage}
                 dispatch={props.dispatch}
               />
             }
