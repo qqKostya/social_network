@@ -30,7 +30,7 @@ let store = {
         { id: "3", message: "Three" },
         { id: "4", message: "Four" },
       ],
-      newMessageText: "new message",
+      newMessageText: "",
     },
   },
 

@@ -16,34 +16,28 @@ function Dialogs(props) {
     <Message message={el.message} id={el.id} key={el.id} />
   ));
 
-  const newMessageElement = React.createRef();
-
   const messageAdd = () => {
     props.dispatch(addMessageActionCreator());
   };
 
-  const onPostChange = () => {
-    const text = newMessageElement.current.value;
+  const onPostChange = (e) => {
+    const text = e.target.value;
     props.dispatch(updateNewMessagePostActionCreator(text));
   };
 
   return (
     <div className={classes.dialogs}>
       <div className={classes.dialogs_items}>{dialogsElement}</div>
-      <div className={classes.messages}>{messagesElement}</div>
-      {/* homework */}
-      <div>
-        <div>
-          <textarea
-            ref={newMessageElement}
-            value={props.state.newMessageText}
-            onChange={onPostChange}
-          />
-        </div>
-        <div>
-          <button onClick={messageAdd}>Add text</button>
-        </div>
+      <div className={classes.messages}>
+        <div>{messagesElement}</div>
+        <textarea
+          placeholder="Enter new message"
+          value={props.state.newMessageText}
+          onChange={onPostChange}
+        />
+        <button onClick={messageAdd}>Add text</button>
       </div>
+      {/* homework */}
     </div>
   );
 }
