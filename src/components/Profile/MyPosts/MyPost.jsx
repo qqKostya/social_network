@@ -1,10 +1,6 @@
 import classes from "./MyPost.module.css";
 import React from "react";
 import Post from "./Post/Post";
-import {
-  addPostActionCreator,
-  updateNewPostTextActionCreator,
-} from "../../../redux/profile-reducer";
 
 function MyPost(props) {
   const postElemet = props.postData.map((el) => (
@@ -17,13 +13,13 @@ function MyPost(props) {
   ));
   const newPostElement = React.createRef();
 
-  const postAdd = () => {
-    props.dispatch(addPostActionCreator());
+  const onAddPost = () => {
+    props.addPost();
   };
 
   const onPostChange = () => {
     const text = newPostElement.current.value;
-    props.dispatch(updateNewPostTextActionCreator(text));
+    props.updateNewPostText(text);
   };
 
   return (
@@ -38,7 +34,7 @@ function MyPost(props) {
           />
         </div>
         <div>
-          <button onClick={postAdd}>Add post</button>
+          <button onClick={onAddPost}>Add post</button>
         </div>
       </div>
       <div className={classes.posts}>{postElemet}</div>
