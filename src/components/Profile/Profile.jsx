@@ -4,7 +4,6 @@ import classes from "./Profile.module.css";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 function Profile(props) {
-  // debugger;
   return (
     <div>
       <ProfileInfo />

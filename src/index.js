@@ -1,16 +1,14 @@
 import store from "./redux/redux-store";
-// import store from "./redux/state";
 import { BrowserRouter as Router } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import StoreContext, { Provider } from "./StoreContext";
+import { Provider } from "./StoreContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const rerenderEntireTree = (state) => {
-  // debugger;
   root.render(
     <Router>
       <React.StrictMode>
