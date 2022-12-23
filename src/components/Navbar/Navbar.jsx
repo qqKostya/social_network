@@ -65,6 +65,18 @@ function Navbar() {
           Settings
         </NavLink>
       </div>
+      <div>
+        <NavLink
+          to="/users"
+          className={(navData) =>
+            navData.isActive
+              ? `${classes.item} ${classes.active}`
+              : classes.item
+          }
+        >
+          Users
+        </NavLink>
+      </div>
     </nav>
   );
 }
