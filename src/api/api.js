@@ -14,6 +14,18 @@ const userAPI = {
       .get(`users?page=${currentPage}&count=${pageSize}`)
       .then((response) => response.data);
   },
+
+  getUnfollowed(userId) {
+    return instance
+      .delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`)
+      .then((response) => response.data);
+  },
+  
+  getFollowed(userId) {
+    return instance
+      .post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`)
+      .then((response) => response.data);
+  },
 };
 
 export default userAPI;
