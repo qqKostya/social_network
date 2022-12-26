@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/images.png";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
 import userAPI from "../../api/api";
 
 const Users = (props) => {
@@ -44,7 +43,7 @@ const Users = (props) => {
                   disabled={props.folowingInProgress.some((id) => id === u.id)}
                   onClick={() => {
                     props.toggleFollowingProgress(true, u.id);
-                    userAPI.getUnfollowed(u.id).then((data) => {
+                    userAPI.unfollow(u.id).then((data) => {
                       if (data.resultCode === 0) {
                         props.unfollow(u.id);
                       }
@@ -59,7 +58,7 @@ const Users = (props) => {
                   disabled={props.folowingInProgress.some((id) => id === u.id)}
                   onClick={() => {
                     props.toggleFollowingProgress(true, u.id);
-                    userAPI.getFollowed(u.id).then((data) => {
+                    userAPI.follow(u.id).then((data) => {
                       if (data.resultCode === 0) {
                         props.follow(u.id);
                       }
