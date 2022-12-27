@@ -17,19 +17,25 @@ const userAPI = {
 
   follow(userId) {
     return instance.post(
-      `https://social-network.samuraijs.com/api/1.0/follow/${userId}`
+      `follow/${userId}`
     );
   },
   unfollow(userId) {
     return instance.delete(
-      `https://social-network.samuraijs.com/api/1.0/follow/${userId}`
+      `follow/${userId}`
     );
   },
-  auth() {
-    return instance.get(`https://social-network.samuraijs.com/api/1.0/auth/me`);
+ 
+  getProfile(userId) {
+    return instance.get(
+      `profile/${userId}`
+    );
   },
-  userProfile(userId) {
-    return instance.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`);
+};
+
+export const authAPI = {
+  me() {
+    return instance.get(`auth/me`);
   },
 };
 

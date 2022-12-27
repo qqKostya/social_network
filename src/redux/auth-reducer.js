@@ -1,4 +1,4 @@
-import userAPI from "../api/api";
+import { authAPI } from "../api/api";
 const SET_USER_DATA = "SET_USER_DATA";
 
 let initialState = {
@@ -28,9 +28,9 @@ export const setAuthUserData = (userId, login, email) => ({
   data: { userId, login, email },
 });
 
-export const getAuth = () => {
+export const getAuthUserData = () => {
   return (dispatch) => {
-    userAPI.auth().then((response) => {
+    authAPI.me().then((response) => {
       if (response.data.resultCode === 0) {
         let { id, login, email } = response.data.data;
         dispatch(setAuthUserData(id, login, email));

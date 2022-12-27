@@ -56,9 +56,9 @@ export const updateNewPostTextActionCreator = (text) => ({
 });
 
 
-export const userProfile = (userId) => {
+export const getUserProfile = (userId) => {
   return (dispatch) => {
-    userAPI.userProfile(userId).then((response) => {
+    userAPI.getProfile(userId).then((response) => {
       dispatch(setUserProfile(response.data));
     });
   };
