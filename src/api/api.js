@@ -25,6 +25,12 @@ const userAPI = {
       `https://social-network.samuraijs.com/api/1.0/follow/${userId}`
     );
   },
+  auth() {
+    return instance.get(`https://social-network.samuraijs.com/api/1.0/auth/me`);
+  },
+  userProfile(userId) {
+    return instance.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`);
+  },
 };
 
 export default userAPI;
