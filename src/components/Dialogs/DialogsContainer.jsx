@@ -5,6 +5,8 @@ import {
   updateNewMessagePostActionCreator,
 } from "../../redux/dialogs-reducer";
 import Dialogs from "./Dialogs";
+import { Navigate } from "react-router-dom";
+
 
 // function DialogsContainer() {
 //   return (
@@ -48,6 +50,12 @@ let mapDispatchToProps = (dispatch) => {
   };
 };
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+
+let AuthRedirectComponent = (props) => {
+  if (!props.isAuth) return <Navigate to={"/login"} />;
+  return <Dialogs {...props} />
+}
+
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
 
 export default DialogsContainer;
