@@ -11,4 +11,13 @@ const loginFormSchema = Yup.object().shape({
     .min(8, "Must be longer than 8 characters")
     .required("Required"),
 });
+
+export const textareaFormSchema = Yup.object().shape({
+  newMessageBody: Yup.string()
+    //минимальная длина - 1 символа
+    .min(1, "Must be longer than 1 characters")
+    //максимальная длина - 20 символов
+    .max(20, "Exceeded maximum number of characters - 20"),
+});
+
 export default loginFormSchema;

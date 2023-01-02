@@ -1,8 +1,9 @@
 import React from "react";
-import classes from "./Dialogs.module.css";
+import styles from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import { Formik, Form, Field } from "formik";
+import { textareaFormSchema } from "../FormValidation/LoginFormSchema";
 
 function Dialogs(props) {
   const dialogsElement = props.dialogsPage.dialogsData.map((el) => (
@@ -13,22 +14,16 @@ function Dialogs(props) {
     <Message message={el.message} id={el.id} key={el.id} />
   ));
 
-  
-
   return (
-    <div className={classes.dialogs}>
-      <div className={classes.dialogs_items}>{dialogsElement}</div>
-      <div className={classes.messages}>
+    <div className={styles.dialogs}>
+      <div className={styles.dialogs_items}>{dialogsElement}</div>
+      <div className={styles.messages}>
         <div>{messagesElement}</div>
         <AddMassageForm sendMessage={props.messageAdd} />
-        
       </div>
-      
     </div>
   );
 }
-
-
 
 const AddMassageForm = (props) => {
   let addNewMessage = (values) => {
@@ -44,8 +39,9 @@ const AddMassageForm = (props) => {
         addNewMessage(values.newMessageBody);
         resetForm({ values: "" });
       }}
+      validationSchema={textareaFormSchema}
     >
-      {() => (
+      {({ errors, touched }) => (
         <Form>
           <div>
             <Field
@@ -53,9 +49,16 @@ const AddMassageForm = (props) => {
               as={"textarea"}
               placeholder={"enter text"}
             />
+            {errors.newMessageBody && touched.newMessageBody ? (
+              <div className={styles.message__error}>
+                {errors.newMessageBody}
+              </div>
+            ) : null}
           </div>
 
-          <button type={"submit"}>Send2</button>
+          <button className={styles.btn} type={"submit"}>
+            Send2
+          </button>
         </Form>
       )}
     </Formik>

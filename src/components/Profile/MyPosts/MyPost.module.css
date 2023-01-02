@@ -5,3 +5,11 @@
 .posts {
   margin-top: 10px;
 }
+
+.post__error {
+  color: red;
+}
+
+.btn {
+  background-color: aqua;
+}

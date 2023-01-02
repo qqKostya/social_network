@@ -11,3 +11,11 @@
 .messages {
   padding: 10px;
 }
+
+.message__error {
+  color: red;
+}
+
+.btn {
+  background-color: aqua;
+}
