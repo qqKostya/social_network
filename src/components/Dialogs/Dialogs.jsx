@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-
+import { Formik, Form, Field } from "formik";
 
 function Dialogs(props) {
   const dialogsElement = props.dialogsPage.dialogsData.map((el) => (
@@ -13,15 +13,6 @@ function Dialogs(props) {
     <Message message={el.message} id={el.id} key={el.id} />
   ));
 
-  const onAddMessage = () => {
-    props.messageAdd();
-  };
-
-  const onPostChange = (e) => {
-    const text = e.target.value;
-    props.onPostChange(text);
-  };
-
   
 
   return (
@@ -29,16 +20,46 @@ function Dialogs(props) {
       <div className={classes.dialogs_items}>{dialogsElement}</div>
       <div className={classes.messages}>
         <div>{messagesElement}</div>
-        <textarea
-          placeholder="Enter new message"
-          value={props.dialogsPage.newMessageText}
-          onChange={onPostChange}
-        />
-        <button onClick={onAddMessage}>Add text</button>
+        <AddMassageForm sendMessage={props.messageAdd} />
+        
       </div>
-      {/* homework */}
+      
     </div>
   );
 }
+
+
+
+const AddMassageForm = (props) => {
+  let addNewMessage = (values) => {
+    props.sendMessage(values);
+  };
+
+  return (
+    <Formik
+      initialValues={{
+        newMessageBody: "",
+      }}
+      onSubmit={(values, { resetForm }) => {
+        addNewMessage(values.newMessageBody);
+        resetForm({ values: "" });
+      }}
+    >
+      {() => (
+        <Form>
+          <div>
+            <Field
+              name={"newMessageBody"}
+              as={"textarea"}
+              placeholder={"enter text"}
+            />
+          </div>
+
+          <button type={"submit"}>Send2</button>
+        </Form>
+      )}
+    </Formik>
+  );
+};
 
 export default Dialogs;
