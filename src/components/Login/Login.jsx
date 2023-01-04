@@ -4,6 +4,7 @@ import loginFormSchema from "../FormValidation/LoginFormSchema";
 import { connect } from "react-redux";
 import { login } from "../../redux/auth-reducer";
 import { Navigate } from "react-router-dom";
+import styles from './Login.module.css'
 
 const Login = (props) => {
   if (props.isAuth) return <Navigate to="/profile" />;
@@ -27,13 +28,18 @@ const Login = (props) => {
           }
           return errors;
         }}
-        onSubmit={(values) => {
-          console.log(values);
-          props.login(values.email, values.password, values.rememberMe);
+        onSubmit={(values, { setSubmitting, setStatus }) => {
+          props.login(
+            values.email,
+            values.password,
+            values.rememberMe,
+            setStatus
+          );
+          setSubmitting(false);
         }}
         validationSchema={loginFormSchema}
       >
-        {() => (
+        {({ status }) => (
           <Form>
             <div>
               <Field type={"email"} name={"email"} placeholder={"e-mail"} />
@@ -53,6 +59,8 @@ const Login = (props) => {
               <Field type={"checkbox"} name={"rememberMe"} />
               <label htmlFor={"rememberMe"}> remember me </label>
             </div>
+
+            <div className={styles.error}>{status}</div>
 
             <button type={"submit"}>Log in</button>
             {/* <p>{props.messageError}</p> */}
