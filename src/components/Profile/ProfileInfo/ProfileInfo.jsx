@@ -18,7 +18,7 @@ const ProfileInfo = (props) => {
         <div>
           <h2>{props.profile.fullName}</h2>
           <img src={props.profile.photos.small} />
-          <ProfileStatus
+          <ProfileStatusWithHooks
             status={props.status}
             updateStatus={props.updateStatus}
           />
