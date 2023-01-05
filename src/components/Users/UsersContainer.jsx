@@ -9,21 +9,20 @@ import {
   getUsers,
 } from "../../redux/users-reducer";
 import Preloader from "../common/Preloader/Preloader";
-import withAuthRedirect from "../../hoc/withAuthRedirect";
+// import withAuthRedirect from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
+import {
+  getCurrentPage,
+  getFolowingInProgress,
+  getIsFetching,
+  getPageSize,
+  getTotalUsersCount,
+  getUsers2,
+} from "../../redux/users-selectors";
 
 class UsersContainer extends React.Component {
   componentDidMount() {
     this.props.getUsers(this.props.currentPage, this.props.pageSize);
-    // this.props.toggleIsFetching(true);
-
-    // userAPI
-    //   .getUsers(this.props.currentPage, this.props.pageSize)
-    //   .then((data) => {
-    //     this.props.toggleIsFetching(false);
-    //     this.props.setUsers(data.items);
-    //     this.props.setTotalUsersCount(data.totalCount);
-    //   });
   }
 
   onPageChanged = (pageNumber) => {
@@ -52,39 +51,25 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    folowingInProgress: state.usersPage.folowingInProgress,
+    users: getUsers2(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getIsFetching(state),
+    folowingInProgress: getFolowingInProgress(state),
   };
 };
 
-// let mapDispatchToProps = (dispatch) => {
+// let mapStateToProps = (state) => {
 //   return {
-//     follow: (userId) => {
-//       dispatch(followAC(userId));
-//     },
-//     unfollow: (userId) => {
-//       dispatch(unfollowAC(userId));
-//     },
-//     setUsers: (users) => {
-//       dispatch(setUsersAc(users));
-//     },
-//     setCurrentPage: (pageNumber) => {
-//       dispatch(setCurrentPageAC(pageNumber));
-//     },
-//     setTotalUsersCount: (totalCount) => {
-//       dispatch(setTotalUsersCountAC(totalCount));
-//     },
-//     toggleIsFetching: (isFetching) => {
-//       dispatch(toggleIsFetchingAC(isFetching));
-//     },
+//     users: state.usersPage.users,
+//     pageSize: state.usersPage.pageSize,
+//     totalUsersCount: state.usersPage.totalUsersCount,
+//     currentPage: state.usersPage.currentPage,
+//     isFetching: state.usersPage.isFetching,
+//     folowingInProgress: state.usersPage.folowingInProgress,
 //   };
 // };
-
-// let withRedirect = withAuthRedirect(UsersContainer);
 
 export default compose(
   connect(mapStateToProps, {
@@ -96,11 +81,3 @@ export default compose(
   })
   // withAuthRedirect
 )(UsersContainer);
-
-// export default connect(mapStateToProps, {
-//   follow,
-//   unfollow,
-//   setCurrentPage,
-//   toggleFollowingProgress,
-//   getUsers,
-// })(withRedirect);
