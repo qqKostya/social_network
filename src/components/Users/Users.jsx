@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/images.png";
 import { NavLink } from "react-router-dom";
-import userAPI from "../../api/api";
 
 const Users = (props) => {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -34,6 +33,7 @@ const Users = (props) => {
                 <img
                   className={styles.userPhoto}
                   src={u.photos.small != null ? u.photos.small : userPhoto}
+                  alt="img"
                 />
               </NavLink>
             </div>
@@ -42,7 +42,7 @@ const Users = (props) => {
                 <button
                   disabled={props.folowingInProgress.some((id) => id === u.id)}
                   onClick={() => {
-                    props.unfollow(u.id)
+                    props.unfollow(u.id);
                   }}
                 >
                   Unfollow
@@ -51,7 +51,7 @@ const Users = (props) => {
                 <button
                   disabled={props.folowingInProgress.some((id) => id === u.id)}
                   onClick={() => {
-                    props.follow(u.id)
+                    props.follow(u.id);
                   }}
                 >
                   Follow
