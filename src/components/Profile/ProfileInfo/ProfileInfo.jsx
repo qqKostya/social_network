@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Preloader from "../../common/Preloader/Preloader";
 import styles from "./ProfileInfo.module.css";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import userPhoto from "../../../assets/images/images.png";
+import ProfileData from "./ProfileData/ProfileData";
+import ProfileDataForm from "./ProfileData/ProfileDataForm";
 
 const ProfileInfo = (props) => {
+  let [editMode, setEditMode] = useState(false);
+
   if (!props.profile) {
     return <Preloader />;
   }
@@ -24,8 +28,7 @@ const ProfileInfo = (props) => {
         />
       </div>
       <div className={styles.description_block}>
-        <div>
-          <h2>{props.profile.fullName}</h2>
+        <div className={styles.profileInfo}>
           <img
             src={props.profile.photos.small || userPhoto}
             alt="avatar"
@@ -38,41 +41,18 @@ const ProfileInfo = (props) => {
             status={props.status}
             updateStatus={props.updateStatus}
           />
-          <p>{props.profile.aboutMe}</p>
         </div>
-        <div>
-          <span>{props.profile.lookingForAJob ? "=)" : "=("}</span>
-          <span>{props.profile.lookingForAJobDescription}</span>
-        </div>
-        <div>
-          <h3>My contacts:</h3>
-          <ul>
-            <li>
-              <a href={props.profile.facebook}>facebook</a>
-            </li>
-            <li>
-              <a href={props.profile.website}>website</a>
-            </li>
-            <li>
-              <a href={props.profile.vk}>vk</a>
-            </li>
-            <li>
-              <a href={props.profile.twitter}>twitter</a>
-            </li>
-            <li>
-              <a href={props.profile.instagram}>instagram</a>
-            </li>
-            <li>
-              <a href={props.profile.youtube}>youtube</a>
-            </li>
-            <li>
-              <a href={props.profile.github}>github</a>
-            </li>
-            <li>
-              <a href={props.profile.mainLink}>mainLink</a>
-            </li>
-          </ul>
-        </div>
+        {editMode ? (
+          <ProfileDataForm profile={props.profile} />
+        ) : (
+          <ProfileData
+            profile={props.profile}
+            isOwner={props.isOwner}
+            goToEditMode={() => {
+              setEditMode(true);
+            }}
+          />
+        )}
       </div>
     </div>
   );
