@@ -1,6 +1,18 @@
 import React from "react";
-import { Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import * as Yup from "yup";
 import style from "./ProfileDataForm.module.css";
+
+const validationSchema = Yup.object({
+  fullName: Yup.string()
+    .required('Name is required'),
+  lookingForAJobDescription: Yup.string()
+    .required('Field is required')
+    .max(100, 'Exceeded maximum number of characters'),
+  aboutMe: Yup.string()
+    .required('Field is required')
+    .max(100, 'Exceeded maximum number of characters')
+})
 
 const ProfileDataForm = (props) => {
   const submit = props.onSubmit;
@@ -23,6 +35,7 @@ const ProfileDataForm = (props) => {
         },
       }}
       onSubmit={submit}
+      validationSchema={validationSchema}
     >
       {() => (
         <Form className={style.form}>
@@ -38,6 +51,7 @@ const ProfileDataForm = (props) => {
                 name="fullName"
                 placeholder="Name"
               />
+              <ErrorMessage name="fullName" component="div" />
             </label>
             <label>
               <b>Looking for a job:</b>
@@ -50,10 +64,12 @@ const ProfileDataForm = (props) => {
                 name="lookingForAJobDescription"
                 placeholder="My professional skills"
               />
+              <ErrorMessage name="lookingForAJobDescription" component="div" />
             </label>
             <label>
               <b>About me:</b>
               <Field as={"textarea"} name="aboutMe" placeholder="About me" />
+              <ErrorMessage name="aboutMe" component="div" />
             </label>
           </div>
         </Form>
