@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Preloader from "../../common/Preloader/Preloader";
 import styles from "./ProfileInfo.module.css";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import userPhoto from "../../../assets/images/images.png";
 import ProfileData from "./ProfileData/ProfileData";
-import ProfileDataForm from "./ProfileData/ProfileDataForm";
+import ProfileDataForm from "./ProfileDataForm/ProfileDataForm";
 
 const ProfileInfo = (props) => {
   let [editMode, setEditMode] = useState(false);
