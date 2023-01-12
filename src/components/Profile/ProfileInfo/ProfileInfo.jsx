@@ -19,6 +19,10 @@ const ProfileInfo = (props) => {
     }
   };
 
+  const onSubmit = (formData) => {
+    props.saveProfile(formData);
+  };
+
   return (
     <div>
       <div>
@@ -43,7 +47,7 @@ const ProfileInfo = (props) => {
           />
         </div>
         {editMode ? (
-          <ProfileDataForm profile={props.profile} />
+          <ProfileDataForm profile={props.profile} onSubmit={onSubmit} />
         ) : (
           <ProfileData
             profile={props.profile}

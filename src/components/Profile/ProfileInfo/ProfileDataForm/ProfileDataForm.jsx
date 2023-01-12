@@ -3,12 +3,31 @@ import { Field, Form, Formik } from "formik";
 import style from "./ProfileDataForm.module.css";
 
 const ProfileDataForm = (props) => {
+  const submit = props.onSubmit;
+
   return (
-    <Formik initialValues={props.profile}>
-      {({ initialValues }) => (
+    <Formik
+      initialValues={{
+        aboutMe: "",
+        lookingForAJobDescription: "",
+        fullName: "",
+        contacts: {
+          facebook: "",
+          website: "",
+          vk: "",
+          twitter: "",
+          instagram: "",
+          youtube: "",
+          github: "",
+          mainLink: "",
+        },
+      }}
+      onSubmit={submit}
+    >
+      {() => (
         <Form className={style.form}>
           <div>
-            <button onClick={() => {}}>Save</button>
+            <button type="submit">Save</button>
           </div>
           <div>
             <label>
@@ -30,17 +49,11 @@ const ProfileDataForm = (props) => {
                 as={"textarea"}
                 name="lookingForAJobDescription"
                 placeholder="My professional skills"
-                value=""
               />
             </label>
             <label>
               <b>About me:</b>
-              <Field
-                as={"textarea"}
-                name="aboutMe"
-                placeholder="About me"
-                value=""
-              />
+              <Field as={"textarea"} name="aboutMe" placeholder="About me" />
             </label>
           </div>
         </Form>
