@@ -1,41 +1,16 @@
 import React from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import * as Yup from "yup";
 import style from "./ProfileDataForm.module.css";
-
-const validationSchema = Yup.object({
-  fullName: Yup.string()
-    .required('Name is required'),
-  lookingForAJobDescription: Yup.string()
-    .required('Field is required')
-    .max(100, 'Exceeded maximum number of characters'),
-  aboutMe: Yup.string()
-    .required('Field is required')
-    .max(100, 'Exceeded maximum number of characters')
-})
+import profileFormSchema from "../../../FormValidation/ProfileFormSchema";
 
 const ProfileDataForm = (props) => {
   const submit = props.onSubmit;
 
   return (
     <Formik
-      initialValues={{
-        aboutMe: "",
-        lookingForAJobDescription: "",
-        fullName: "",
-        contacts: {
-          facebook: "",
-          website: "",
-          vk: "",
-          twitter: "",
-          instagram: "",
-          youtube: "",
-          github: "",
-          mainLink: "",
-        },
-      }}
+      initialValues={props.profile}
       onSubmit={submit}
-      validationSchema={validationSchema}
+      validationSchema={profileFormSchema}
     >
       {() => (
         <Form className={style.form}>
@@ -71,6 +46,26 @@ const ProfileDataForm = (props) => {
               <Field as={"textarea"} name="aboutMe" placeholder="About me" />
               <ErrorMessage name="aboutMe" component="div" />
             </label>
+            <div>
+              <b>Contacts:</b>
+              <ul>
+                {Object.keys(props.profile.contacts).map((key) => {
+                  return (
+                    <li key={key}>
+                      <label>
+                        <b>{key}:</b>
+                        <Field
+                          as={"input"}
+                          type="text"
+                          name={"contacts." + key}
+                          placeholder={key}
+                        />
+                      </label>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
         </Form>
       )}
