@@ -6,7 +6,7 @@ import { login } from "../../redux/auth-reducer";
 import { Navigate } from "react-router-dom";
 import styles from "./Login.module.css";
 
-const Login = ({ isAuth, login }) => {
+const Login = ({ isAuth, login, captchaUrl }) => {
   if (isAuth) return <Navigate to="/profile" />;
   return (
     <div>
@@ -16,6 +16,7 @@ const Login = ({ isAuth, login }) => {
           email: "",
           password: "",
           rememberMe: false,
+          captcha: "",
         }}
         validate={(values) => {
           const errors = {};
@@ -29,7 +30,7 @@ const Login = ({ isAuth, login }) => {
           return errors;
         }}
         onSubmit={(values, { setSubmitting, setStatus }) => {
-          login(values.email, values.password, values.rememberMe, setStatus);
+          login(values.email, values.password, values.rememberMe, setStatus, values.captcha);
           setSubmitting(false);
         }}
         validationSchema={loginFormSchema}
@@ -49,6 +50,19 @@ const Login = ({ isAuth, login }) => {
               />
             </div>
             <ErrorMessage name="password" component="div" />
+            {captchaUrl && (
+              <div>
+                <img src={captchaUrl} alt="captcha" />
+                <div>
+                  <Field
+                    as={"input"}
+                    type="text"
+                    name="captcha"
+                    placeholder=""
+                  />
+                </div>
+              </div>
+            )}
 
             <div>
               <Field type={"checkbox"} name={"rememberMe"} />
@@ -71,6 +85,7 @@ let mapStateToProps = (state) => {
     // messageError is a data from the Respons wich shows what is the problem
     //delete this string in case u don't have logic in reducer for it
     // messageError: state.auth.messageError,
+    captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth.isAuth,
   };
 };
