@@ -110,6 +110,9 @@ export const saveProfile = (profile) => async (dispatch, getState) => {
   const response = await profileAPI.saveProfile(profile);
   if (response.data.resultCode === 0) {
     dispatch(getUserProfile(userId));
+  } else {
+    setStatus(response.data.messages);
+    return Promise.reject(response.data.messages);
   }
 };
 
