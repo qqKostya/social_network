@@ -9,8 +9,8 @@ type PropsType = {
   totalUsersCount: number
   pageSize: number
   folowingInProgress: Array<number>
-  unfollow: () => void
-  follow: () => void
+  unfollow: (userId: number) => void
+  follow: (userId: number) => void
   users: Array<UsersType>
 }
 
