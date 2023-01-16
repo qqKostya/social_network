@@ -5,7 +5,7 @@ import { UsersType } from "../../types/types"
 
 type PropsType = {
   currentPage: number
-  onPageChanged: () => void
+  onPageChanged: (pageNumber: number) => void
   totalUsersCount: number
   pageSize: number
   folowingInProgress: Array<number>
