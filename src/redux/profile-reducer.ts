@@ -1,5 +1,7 @@
+import { ThunkAction } from "redux-thunk";
 import userAPI, { profileAPI } from "../api/api";
 import { PhotosType, PostType, ProfileType } from "../types/types";
+import { AppStateType } from "./redux-store";
 
 const ADD_POST = "profile/ADD-POST";
 const SET_USER_PROFILE = "profile/SET_USER_PROFILE";
@@ -27,7 +29,7 @@ let initialState = {
 
 export type InitialStateType = typeof initialState
 
-const profileReducer = (state = initialState, action: any):InitialStateType => {
+const profileReducer = (state = initialState, action: ActionsTypes):InitialStateType => {
   switch (action.type) {
     case ADD_POST: {
       let newPost = {
@@ -70,6 +72,8 @@ const profileReducer = (state = initialState, action: any):InitialStateType => {
       return state;
   }
 };
+
+type ActionsTypes = AddPostActionCreatorType | SetUserProfileType | SetStatusType | DeletePostType | SavePhotoSuccessType
 
 type AddPostActionCreatorType = {
   type: typeof ADD_POST
@@ -115,35 +119,40 @@ export const savePhotoSuccess = (photos: PhotosType): SavePhotoSuccessType => ({
   photos,
 });
 
-export const getUserProfile = (userId: number) => async (dispatch: any) => {
+type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
+
+
+export const getUserProfile = (userId: number): ThunkType => async (dispatch) => {
   const response = await userAPI.getProfile(userId);
   dispatch(setUserProfile(response.data));
 };
 
-export const getStatus = (userId: number) => async (dispatch: any) => {
+export const getStatus = (userId: number): ThunkType => async (dispatch) => {
   const response = await profileAPI.getStatus(userId);
   dispatch(setStatus(response.data));
 };
 
-export const updateStatus = (status: string) => async (dispatch: any) => {
+export const updateStatus = (status: string): ThunkType => async (dispatch) => {
   const response = await profileAPI.updateStatus(status);
   if (response.data.resultCode === 0) {
     dispatch(setStatus(status));
   }
 };
 
-export const savePhoto = (file: any) => async (dispatch: any) => {
+export const savePhoto = (file: any): ThunkType => async (dispatch) => {
   const response = await profileAPI.savePhoto(file);
   if (response.data.resultCode === 0) {
     dispatch(savePhotoSuccess(response.data.data.photos));
   }
 };
 
-export const saveProfile = (profile: ProfileType) => async (dispatch: any, getState: any) => {
+export const saveProfile = (profile: ProfileType): ThunkType => async (dispatch, getState) => {
   const userId = getState().auth.userId;
   const response = await profileAPI.saveProfile(profile);
   if (response.data.resultCode === 0) {
-    dispatch(getUserProfile(userId));
+    if (userId != null) {
+      dispatch(getUserProfile(userId));
+    }
   } else {
     setStatus(response.data.messages);
     return Promise.reject(response.data.messages);
