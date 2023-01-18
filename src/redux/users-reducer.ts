@@ -147,7 +147,7 @@ export const toggleFollowingProgress = (isFetching: boolean, userId: number): To
   userId,
 });
 
-type GetStateType = () => AppStateType
+
 type CurrentDispatchType = Dispatch<ActionsTypes>
 type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
 
