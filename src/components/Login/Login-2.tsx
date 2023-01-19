@@ -1,12 +1,18 @@
-import React from "react";
+import React, { FC } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import loginFormSchema from "../FormValidation/LoginFormSchema";
 import { connect } from "react-redux";
 import { login } from "../../redux/auth-reducer";
 import { Navigate } from "react-router-dom";
 import styles from "./Login.module.css";
+import { AppStateType } from "../../redux/redux-store";
 
-const Login = ({ isAuth, login, captchaUrl }) => {
+
+type PropsType = MapStatePropsType & MapDispatchPropsType;
+
+
+
+const Login: FC<PropsType> = ({ isAuth, login, captchaUrl }) => {
   if (isAuth) return <Navigate to="/profile" />;
   return (
     <div>
@@ -19,7 +25,7 @@ const Login = ({ isAuth, login, captchaUrl }) => {
           captcha: "",
         }}
         validate={(values) => {
-          const errors = {};
+          const errors = { email: "" };
           if (!values.email) {
             errors.email = "Required";
           } else if (
@@ -86,7 +92,16 @@ const Login = ({ isAuth, login, captchaUrl }) => {
   );
 };
 
-let mapStateToProps = (state) => {
+type MapStatePropsType = {
+  isAuth: boolean,
+  captchaUrl: string | null
+}
+
+type MapDispatchPropsType = {
+  login: (email: string, password: string, rememberMe: boolean, setStatus: any, captcha: any) => void
+};
+
+let mapStateToProps = (state: AppStateType): MapStatePropsType => {
   return {
     // messageError is a data from the Respons wich shows what is the problem
     //delete this string in case u don't have logic in reducer for it
@@ -96,4 +111,8 @@ let mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { login })(Login);
+type OwnPropsType = {}
+
+
+export default connect<MapStatePropsType, MapDispatchPropsType,
+  OwnPropsType, AppStateType>(mapStateToProps, { login })(Login);
