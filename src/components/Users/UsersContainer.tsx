@@ -3,7 +3,7 @@ import Users from "./Users";
 import { connect } from "react-redux";
 import {
   follow,
-  setCurrentPage,
+  actions,
   unfollow,
   getUsers,
 } from "../../redux/users-reducer";
@@ -84,6 +84,8 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     folowingInProgress: getFolowingInProgress(state),
   };
 };
+
+let setCurrentPage = actions.setCurrentPage
 
 export default compose<PropsType>(
   connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
