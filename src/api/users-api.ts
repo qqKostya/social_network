@@ -1,10 +1,10 @@
-import {instance} from './api'
+import {GetItemsType, instance} from './api'
 import {profileAPI} from './profile-api'
 
 const userAPI = {
   getUsers(currentPage = 1, pageSize = 10) {
     return instance
-      .get(`users?page=${currentPage}&count=${pageSize}`)
+      .get<GetItemsType>(`users?page=${currentPage}&count=${pageSize}`)
       .then((response) => response.data);
   },
 
