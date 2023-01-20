@@ -1,5 +1,6 @@
 import { ThunkAction } from "redux-thunk";
-import userAPI, { profileAPI } from "../api/api";
+import { profileAPI } from "../api/profile-api";
+import userAPI from "../api/users-api";
 import { PhotosType, PostType, ProfileType } from "../types/types";
 import { AppStateType } from "./redux-store";
 

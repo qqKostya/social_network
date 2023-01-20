@@ -1,6 +1,9 @@
 import { ThunkAction } from "redux-thunk";
-import { authAPI, ResultCodeEnum, ResultCodeForCaptchaEnum, securityAPI } from "../api/api";
+import {ResultCodeEnum, ResultCodeForCaptchaEnum } from "../api/api";
+import { authAPI } from "../api/auth-api";
+import { securityAPI } from "../api/security-apy";
 import { AppStateType } from "./redux-store";
+
 
 const SET_USER_DATA = "auth/SET_USER_DATA";
 const GET_CAPTCHA_URL_SUCCESS = "auth/GET_CAPTCHA_URL_SUCCESS";
