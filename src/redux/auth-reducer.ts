@@ -11,7 +11,7 @@ let initialState = {
   captchaUrl: null as string | null, // if null , then capthca is not required
 };
 
-export type InitialStateType = typeof initialState 
+
 
 const authReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
   switch (action.type) {
@@ -29,7 +29,6 @@ const authReducer = (state = initialState, action: ActionsTypes): InitialStateTy
 
 
 
-type ActionsTypes = InferActionsTypes<typeof actions>
 
 export const actions = {
   setAuthUserData: (userId: number | null, login: string | null, email: string | null, isAuth: boolean) => ({
@@ -45,7 +44,6 @@ export const actions = {
 
 }
 
-type ThunkType = BaseThunkType<ActionsTypes>
 
 
 export const getAuthUserData = (): ThunkType => async (dispatch) => {
@@ -87,3 +85,7 @@ export const logout = (): ThunkType => async (dispatch) => {
 };
 
 export default authReducer;
+
+export type InitialStateType = typeof initialState 
+type ActionsTypes = InferActionsTypes<typeof actions>
+type ThunkType = BaseThunkType<ActionsTypes>

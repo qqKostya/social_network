@@ -17,7 +17,7 @@ let initialState = {
 };
 
 
-export type InitialStateType = typeof initialState
+
 
 const profileReducer = (state = initialState, action: ActionsTypes):InitialStateType => {
   switch (action.type) {
@@ -62,9 +62,6 @@ const profileReducer = (state = initialState, action: ActionsTypes):InitialState
       return state;
   }
 };
-
-type ActionsTypes = InferActionsTypes<typeof actions>
-type ThunkType = BaseThunkType<ActionsTypes>
 
 export const actions = {
   addPostActionCreator: (newMessageBody: string) => ({
@@ -128,3 +125,7 @@ export const saveProfile = (profile: ProfileType): ThunkType => async (dispatch,
 };
 
 export default profileReducer;
+
+export type InitialStateType = typeof initialState
+type ActionsTypes = InferActionsTypes<typeof actions>
+type ThunkType = BaseThunkType<ActionsTypes>

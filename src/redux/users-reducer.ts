@@ -14,7 +14,7 @@ let initialState = {
   folowingInProgress: [] as Array<number>, // array of users ID
 };
 
-type InitialStateType = typeof initialState
+
 
 const usersReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
   switch (action.type) {
@@ -56,7 +56,6 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
   }
 };
 
-type ActionsTypes = InferActionsTypes<typeof actions>
 
 export const actions = {
 
@@ -108,9 +107,6 @@ export const actions = {
 
 }
 
-type CurrentDispatchType = Dispatch<ActionsTypes>
-type ThunkType = BaseThunkType<ActionsTypes>
-// type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
 
 export const getUsers = (currentPage: number, pageSize: number): ThunkType => {
   return (dispatch) => {
@@ -160,3 +156,8 @@ export const unfollow = (userId: number): ThunkType => async (dispatch) => {
 };
 
 export default usersReducer;
+
+type InitialStateType = typeof initialState
+type ActionsTypes = InferActionsTypes<typeof actions>
+type CurrentDispatchType = Dispatch<ActionsTypes>
+type ThunkType = BaseThunkType<ActionsTypes>
