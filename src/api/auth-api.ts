@@ -1,9 +1,6 @@
 import {instance, ResponseType, ResultCodeEnum, ResultCodeForCaptchaEnum} from './api'
 
 
-
-
-
 type MeResponseDataType = {
   id: number, email: string, login: string
 }

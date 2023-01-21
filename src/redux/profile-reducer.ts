@@ -155,7 +155,7 @@ export const saveProfile = (profile: ProfileType): ThunkType => async (dispatch,
       dispatch(getUserProfile(userId));
     }
   } else {
-    setStatus(response.data.messages);
+    setStatus(response.data.messages[0]);
     return Promise.reject(response.data.messages);
   }
 };

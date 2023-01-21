@@ -1,4 +1,4 @@
-import {GetItemsType, instance} from './api'
+import {GetItemsType, instance, ResponseType} from './api'
 import {profileAPI} from './profile-api'
 
 const userAPI = {
@@ -9,7 +9,7 @@ const userAPI = {
   },
 
   follow(userId: number) {
-    return instance.post(`follow/${userId}`);
+    return instance.post<ResponseType>(`follow/${userId}`);
   },
   unfollow(userId: number) {
     return instance.delete(`follow/${userId}`);
