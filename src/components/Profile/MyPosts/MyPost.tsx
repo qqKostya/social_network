@@ -2,8 +2,14 @@ import styles from "./MyPost.module.css";
 import React from "react";
 import Post from "./Post/Post";
 import AddPostForm from "./AddPostForm";
+import { PostType } from "../../../types/types";
 
-const MyPost = React.memo((props) => {
+type PropsType = {
+  postData: Array<PostType>
+  addPost: (newPostText: string) => void
+}
+
+const MyPosts: React.FC<PropsType> = (props) => {
   const postElemet = props.postData.map((el) => (
     <Post
       message={el.message}
@@ -20,6 +26,8 @@ const MyPost = React.memo((props) => {
       <div className={styles.posts}>{postElemet}</div>
     </div>
   );
-});
+}
+
+const MyPost = React.memo(MyPosts);
 
 export default MyPost;
