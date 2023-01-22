@@ -3,8 +3,12 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import { textareaFormSchema } from "../../FormValidation/LoginFormSchema";
 
-const AddPostForm = (props) => {
-  let addNewPost = (value) => {
+type AddNewPostFormPropsType = {
+  sendMessage: (newPostText: string) => void
+}
+
+const AddPostForm: React.FC<AddNewPostFormPropsType> = (props) => {
+  let addNewPost = (value: string) => {
     props.sendMessage(value);
   };
 
@@ -15,7 +19,7 @@ const AddPostForm = (props) => {
       }}
       onSubmit={(values, { resetForm }) => {
         addNewPost(values.newMessageBody);
-        resetForm({ values: "" });
+        resetForm();
       }}
       validationSchema={textareaFormSchema}
     >
