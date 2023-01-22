@@ -5,13 +5,14 @@ import Navbar from "./components/Navbar/Navbar";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import UsersContainer from "./components/Users/UsersContainer";
+import UsersContainerCompose from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import { initializeApp } from "./redux/app-reducer";
 import { connect } from "react-redux";
 import Preloader from "./components/common/Preloader/Preloader";
 import withSuspense from "./hoc/withSuspens";
+import { AppStateType } from "./redux/redux-store";
 
 const ProfileContainer = withSuspense(
   React.lazy(() => import("./components/Profile/ProfileContainer"))
@@ -20,7 +21,13 @@ const DialogsContainer = withSuspense(
   React.lazy(() => import("./components/Dialogs/DialogsContainer"))
 );
 
-class App extends React.Component {
+
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+  initializeApp: () => void
+}
+
+class App extends React.Component<MapPropsType & DispatchPropsType> {
   // cathcAllUnhandleErrors = (promiseRejectionEvent) => {
   //   alert("Some error occurend");
   //   console.log(promiseRejectionEvent);
@@ -62,7 +69,7 @@ class App extends React.Component {
             <Route path="/settings" element={<Settings />} />
             <Route
               path="/users"
-              element={<UsersContainer pageTitle={"Samurais"} />}
+              element={<UsersContainerCompose pageTitle={"Samurais"} />}
             />
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<div>404 NOT FOUND</div>} />
@@ -73,7 +80,7 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
   initialized: state.app.initialized,
 });
 
