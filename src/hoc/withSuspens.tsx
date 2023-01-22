@@ -1,8 +1,8 @@
 import React from "react";
 import Preloader from "../components/common/Preloader/Preloader";
 
-const withSuspense = (Components) => {
-  return (props) => {
+function withSuspense<WCP extends object>(WrappedComponents: React.ComponentType<WCP>) {
+  return (props: WCP) => {
     return (
       <React.Suspense
         fallback={
@@ -11,7 +11,7 @@ const withSuspense = (Components) => {
           </div>
         }
       >
-        <Components {...props} />
+        <WrappedComponents {...props} />
       </React.Suspense>
     );
   };
