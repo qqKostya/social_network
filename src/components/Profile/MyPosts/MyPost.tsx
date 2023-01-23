@@ -17,7 +17,7 @@ const MyPosts: React.FC<MapPropsType & DispatchPropsType> = (props) => {
   const postElemet = props.postData.map((el) => (
     <Post
       message={el.message}
-      id={el.id}
+      // id={el.id}
       likeCount={el.likeCount}
       key={el.id}
     />
