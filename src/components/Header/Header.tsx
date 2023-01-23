@@ -2,13 +2,17 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import classes from "./Header.module.css";
 
-type PropsType = {
+export type MapPropsType = {
   isAuth: boolean
-  login: string
+  login: string | null
+  
+}
+
+export type DispatchPropsType = {
   logout: () => void
 }
 
-const Header: React.FC<PropsType> = (props) => {
+const Header: React.FC<MapPropsType & DispatchPropsType> = (props) => {
   return (
     <header className={classes.header}>
       <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/RPC-JP_Logo.png" alt="logo" />
