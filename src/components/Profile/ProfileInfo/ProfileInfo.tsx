@@ -2,11 +2,11 @@ import React, { ChangeEvent, useState } from "react";
 import Preloader from "../../common/Preloader/Preloader";
 import styles from "./ProfileInfo.module.css";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
-// import userPhoto from "../../../assets/images/images.png";
+import userPhoto from "../../../assets/images/images.png";
 import ProfileData from "./ProfileData/ProfileData";
 import ProfileDataForm from "./ProfileDataForm/ProfileDataForm";
 import { ProfileType } from "../../../types/types";
-const userPhoto = require("../../../assets/images/images.png")
+// const userPhoto = require("../../../assets/images/images.png")
 
 
 type PropsType = {
