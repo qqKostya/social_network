@@ -12,8 +12,9 @@ type PropsType = {
 }
 
 const UsersSerchForm: React.FC<PropsType> = (props) => {
-  const submit = (values: FilterType, { setSubmitting }: { setSubmitting: (setSabmitting: boolean) => void }) => {
+  const submit = (values: FilterType, { setSubmitting }: { setSubmitting: (setSubmitting: boolean) => void }) => {
     props.onFilterChanged(values)
+    setSubmitting(false)
   }
 
   return (
