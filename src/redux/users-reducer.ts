@@ -1,4 +1,5 @@
 import { Dispatch } from "redux";
+import { ResponseType } from "../api/api";
 import userAPI from "../api/users-api";
 import { UsersType } from "../types/types";
 import { updateObjectInArray } from "../utils/object-helpers";
@@ -123,14 +124,14 @@ export const getUsers = (currentPage: number, pageSize: number): ThunkType => {
 const _followUnfollowFlow = async (
   dispatch: CurrentDispatchType,
   userId: number,
-  apiMethod: any,
+  apiMethod: (userId: number) => Promise<ResponseType>,
   actionCreator: (userId: number) => ActionsTypes
 ) => {
   dispatch(actions.toggleFollowingProgress(true, userId));
 
   let response = await apiMethod(userId);
 
-  if (response.data.resultCode === 0) {
+  if (response.resultCode === 0) {
     dispatch(actionCreator(userId));
   }
 
@@ -138,7 +139,7 @@ const _followUnfollowFlow = async (
 };
 
 export const follow = (userId: number): ThunkType => async (dispatch) => {
-  _followUnfollowFlow(
+  await _followUnfollowFlow(
     dispatch,
     userId,
     userAPI.follow.bind(userAPI),
@@ -147,7 +148,7 @@ export const follow = (userId: number): ThunkType => async (dispatch) => {
 };
 
 export const unfollow = (userId: number): ThunkType => async (dispatch) => {
-  _followUnfollowFlow(
+  await _followUnfollowFlow(
     dispatch,
     userId,
     userAPI.unfollow.bind(userAPI),

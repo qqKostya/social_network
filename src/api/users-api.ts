@@ -9,10 +9,10 @@ const userAPI = {
   },
 
   follow(userId: number) {
-    return instance.post<ResponseType>(`follow/${userId}`);
+    return instance.post<ResponseType>(`follow/${userId}`).then((response) => response.data);
   },
   unfollow(userId: number) {
-    return instance.delete(`follow/${userId}`);
+    return instance.delete(`follow/${userId}`).then(res => res.data) as Promise<ResponseType>;
   },
 
   getProfile(userId: number) {
