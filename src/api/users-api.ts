@@ -2,9 +2,9 @@ import {GetItemsType, instance, ResponseType} from './api'
 import {profileAPI} from './profile-api'
 
 const userAPI = {
-  getUsers(currentPage = 1, pageSize = 10) {
+  getUsers(currentPage = 1, pageSize = 10, term: string = '') {
     return instance
-      .get<GetItemsType>(`users?page=${currentPage}&count=${pageSize}`)
+      .get<GetItemsType>(`users?page=${currentPage}&count=${pageSize}&term=${term}`)
       .then((response) => response.data);
   },
 

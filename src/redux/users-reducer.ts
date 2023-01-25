@@ -13,6 +13,9 @@ let initialState = {
   currentPage: 1,
   isFetching: false,
   folowingInProgress: [] as Array<number>, // array of users ID
+  filter: {
+    term: ''
+  }
 };
 
 
@@ -52,6 +55,12 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
           : state.folowingInProgress.filter((id) => id !== action.userId),
       };
 
+    case 'SET_FILTER':
+      return {
+        ...state,
+        filter: action.payload
+      }
+
     default:
       return state;
   }
@@ -87,6 +96,12 @@ export const actions = {
   } as const),
 
 
+  setFilter: (term: string) => ({
+    type: 'SET_FILTER',
+    payload: {term},
+  } as const),
+
+
 
   setTotalUsersCount: (totalUsersCount: number) => ({
     type: 'SET_TOTAL_USERS_COUNT',
@@ -109,11 +124,12 @@ export const actions = {
 }
 
 
-export const getUsers = (currentPage: number, pageSize: number): ThunkType => {
+export const getUsers = (currentPage: number, pageSize: number, term: string): ThunkType => {
   return (dispatch) => {
     dispatch(actions.toggleIsFetching(true));
+    dispatch(actions.setFilter(term));
 
-    userAPI.getUsers(currentPage, pageSize).then((data) => {
+    userAPI.getUsers(currentPage, pageSize, term).then((data) => {
       dispatch(actions.toggleIsFetching(false));
       dispatch(actions.setUsers(data.items));
       dispatch(actions.setTotalUsersCount(data.totalCount));
@@ -159,6 +175,7 @@ export const unfollow = (userId: number): ThunkType => async (dispatch) => {
 export default usersReducer;
 
 export type InitialStateType = typeof initialState
+export type FilterType = typeof initialState.filter
 type ActionsTypes = InferActionsTypes<typeof actions>
 type CurrentDispatchType = Dispatch<ActionsTypes>
 type ThunkType = BaseThunkType<ActionsTypes>

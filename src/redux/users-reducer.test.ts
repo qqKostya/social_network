@@ -26,7 +26,10 @@ beforeEach(()=>{
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
-    folowingInProgress: []
+    folowingInProgress: [],
+    filter: {
+      term: ''
+    }
   };
 })
 
