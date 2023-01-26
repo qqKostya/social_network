@@ -14,7 +14,8 @@ let initialState = {
   isFetching: false,
   folowingInProgress: [] as Array<number>, // array of users ID
   filter: {
-    term: ''
+    term: '',
+    friend: null as null | boolean
   }
 };
 
@@ -96,9 +97,9 @@ export const actions = {
   } as const),
 
 
-  setFilter: (term: string) => ({
+  setFilter: (filter: FilterType) => ({
     type: 'SET_FILTER',
-    payload: {term},
+    payload: filter,
   } as const),
 
 
@@ -124,12 +125,12 @@ export const actions = {
 }
 
 
-export const getUsers = (currentPage: number, pageSize: number, term: string): ThunkType => {
+export const getUsers = (currentPage: number, pageSize: number, filter: FilterType): ThunkType => {
   return (dispatch) => {
     dispatch(actions.toggleIsFetching(true));
-    dispatch(actions.setFilter(term));
+    dispatch(actions.setFilter(filter));
 
-    userAPI.getUsers(currentPage, pageSize, term).then((data) => {
+    userAPI.getUsers(currentPage, pageSize, filter.term, filter.friend).then((data) => {
       dispatch(actions.toggleIsFetching(false));
       dispatch(actions.setUsers(data.items));
       dispatch(actions.setTotalUsersCount(data.totalCount));

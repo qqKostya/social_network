@@ -29,6 +29,6 @@ export const getFolowingInProgress = (state: AppStateType) => {
   return state.usersPage.folowingInProgress;
 };
 
-export const gerUsersFilter = (state: AppStateType) => {
+export const getUsersFilter = (state: AppStateType) => {
   return state.usersPage.filter;
 };

@@ -28,7 +28,8 @@ beforeEach(()=>{
     isFetching: false,
     folowingInProgress: [],
     filter: {
-      term: ''
+      term: '',
+      friend: null as null | boolean
     }
   };
 })
