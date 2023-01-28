@@ -8,3 +8,7 @@ export const selectIsAuth = (state: AppStateType) => {
 export const selectCurrentUserLogin = (state: AppStateType) => {
    return state.auth.login
 }
+
+export const selectByPhoto = (state: AppStateType) => {
+  return state.profilePage.profile?.photos.small
+}

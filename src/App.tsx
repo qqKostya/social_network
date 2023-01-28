@@ -172,7 +172,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
           </Layout>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
-          Samurai Social Network ©2022 Created by IT-KAMASUTRA/Maxim Saharov
+          Samurai Social Network ©2023 Created by IT-KAMASUTRA / Kazakov Konstantin
         </Footer>
       </Layout>
       // <div className="app-wrapper">

@@ -5,11 +5,10 @@ import {Avatar, Button, Col, Layout, Menu, Row} from 'antd'
 import {AppstoreOutlined} from '@ant-design/icons'
 import {getItem, MenuItem} from '../../App'
 import {useDispatch, useSelector} from 'react-redux'
-import {selectCurrentUserLogin, selectIsAuth} from '../../redux/auth-selectors'
+import {selectByPhoto, selectCurrentUserLogin, selectIsAuth} from '../../redux/auth-selectors'
 import { logout } from '../../redux/auth-reducer'
 import { AppDispatch } from '../../redux/redux-store'
-import logo from "../../assets/images/logo.png";
-import avatarDefault from "../../assets/images/images.png";
+import logo from "../../assets/images/logo-2.png";
 
 
 const {Header} = Layout
@@ -29,6 +28,8 @@ export const HeaderComponent: React.FC = () => {
 
    const isAuth = useSelector(selectIsAuth)
    const login = useSelector(selectCurrentUserLogin)
+   const myPhoto = useSelector(selectByPhoto)
+
    const dispatch: AppDispatch = useDispatch()
 
    const logoutCallback = () => {
@@ -39,23 +40,23 @@ export const HeaderComponent: React.FC = () => {
       <Header className="header">
          <header>
             <Row>
-               <Col span={3}>
+               <Col span={8}>
                   <img className={s.headerPhoto}
                        src={logo}
                        alt={'header-illustration-logo'}
                   />
                </Col>
 
-               <Col span={4}>
+               <Col span={8}>
                   <Menu theme="dark" mode="horizontal" items={itemsHeader}
                         selectedKeys={['']}
                   />
                </Col>
 
-               <Col span={17}>
+               <Col span={8}>
                   {isAuth
                      ? <div>
-                        <Avatar alt={login || ''} src={avatarDefault} />
+                        <Avatar alt={login || ''} src={myPhoto} />
                         <span className={s.loginBlockIsAuth}>
                            {login} - <Button
                            onClick={logoutCallback}>
