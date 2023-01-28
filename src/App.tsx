@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar/Navbar";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import UsersContainerCompose from "./components/Users/UsersContainer";
+import UsersPage from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import { initializeApp } from "./redux/app-reducer";
@@ -69,7 +69,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
             <Route path="/settings" element={<Settings />} />
             <Route
               path="/users"
-              element={<UsersContainerCompose pageTitle={"Samurais"} />}
+              element={<UsersPage pageTitle={"Samurais"} />}
             />
             <Route path="/login" element={<Login />} />
             <Route path="*" element={<div>404 NOT FOUND</div>} />

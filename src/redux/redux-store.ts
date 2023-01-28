@@ -31,7 +31,7 @@ export type InferActionsTypes<T extends {[key: string]: (...args: any[])=>any}> 
 
 
 export type BaseThunkType<A extends Action = Action, R = void> = ThunkAction<R, AppStateType, unknown, A>
-
+export type AppDispatch = typeof store.dispatch
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
