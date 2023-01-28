@@ -1,16 +1,17 @@
-.header {
-  grid-area: h;
-  background-color: green;
+.headerPhoto {
+  width: 70px;
 }
 
-.header img {
-  width: 20px;
+.loginBlockIsAuth {
+  /*float: left;*/
+  font-weight: bold;
+  margin-left: 15px;
+  /*margin-right: 15px;*/
+  color: #4f4fe5
 }
 
-.loginBlock {
-  float: right;
-}
-
-.loginBlock a {
-  color: white;
+.loginBlockNotAuth {
+  font-weight: bold;
+  margin-left: 15px;
+  /*color: #ef5050;*/
 }
