@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import message from "../../components/Dialogs/Message/Message";
 
-const ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
+const wsChannel = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
 
 export type ChatMessageType = {
     message: string
@@ -26,8 +26,9 @@ const Messages: React.FC = () => {
     const [messages, setMessages] = useState<ChatMessageType[]>([])
 
     useEffect(() => {
-        ws.addEventListener('message', (e) => {
-            setMessages(JSON.parse(e.data))
+        wsChannel.addEventListener('message', (e) => {
+            let newMessages = JSON.parse(e.data);
+            setMessages((prevMessages) => [...prevMessages, ...newMessages])
         })
     }, [])
 
@@ -36,21 +37,31 @@ const Messages: React.FC = () => {
     </div>
 }
 
+
+const Message: React.FC<{ message: ChatMessageType }> = ({message}) => {
+    return <div>
+        <img style={{width: '30px'}} src={message.photo}/> <b>{message.userName}</b>
+        <div>{message.message}</div>
+    </div>
+}
+
 const AddMessageForm: React.FC = () => {
+    const [message, setMessage] = useState('')
+    const sendMessage = () => {
+        if(!message) {
+            return
+        }
+        wsChannel.send(message)
+        setMessage('')
+    }
     return <div>
         <div>
-            <textarea></textarea>
+            <textarea onChange={(e)=>setMessage(e.currentTarget.value)} value={message}></textarea>
         </div>
         <div>
-            <button>Send</button>
+            <button onClick={sendMessage}>Send</button>
         </div>
     </div>
 }
 
-const Message: React.FC<{message: ChatMessageType}> = ({message}) => {
-    return <div>
-        <img src={message.photo}/> <b>{message.userName}</b>
-        <div>{message.message}</div>
-    </div>
-}
 export default ChatPage
