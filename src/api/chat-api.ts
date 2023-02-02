@@ -1,14 +1,21 @@
-
-
-const subscribes = [] as SubscriberType[]
+let subscribes = [] as MassagesReceivedSubscriberType[]
 
 let webSocket: WebSocket
 
-let closeHadler = () => {
+const closeHadler = () => {
     console.log('CLOSE WS')
     setTimeout(createChanel, 3000)
 };
 
+export type MassagesReceivedSubscriberType =
+    (messages: ChatMessageType[]) => void
+
+
+const oneMessageHandler = (e: MessageEvent) => {
+    const newMessages = JSON.parse(e.data);
+    subscribes.forEach(s => s(newMessages));
+
+};
 
 function createChanel() {
     webSocket?.removeEventListener('close', closeHadler)
@@ -18,8 +25,15 @@ function createChanel() {
 }
 
 export const chatApi = {
-    subscribe(callback: SubscriberType) {
+    subscribe(callback: MassagesReceivedSubscriberType) {
         subscribes.push(callback)
+        return () => {
+            subscribes = subscribes.filter(s => s !== callback)
+        }
+    },
+
+    unsubscribe(callback: MassagesReceivedSubscriberType) {
+        subscribes = subscribes.filter(s => s !== callback)
     }
 }
 type SubscriberType = (messages: ChatMessageType) => void
