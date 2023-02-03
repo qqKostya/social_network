@@ -131,16 +131,3 @@ export const chatAPI = {
         createChanel()
     }
 }
-
-
-// let array2 = [
-//    {
-//       message: '130',
-//       photo: 'https://social-network.samuraijs.com/activecontent/images/users/23275/user-small.jpg?v=12',
-//       userId: 23275,
-//       userName: 'Maxim Saharov'
-//    },
-// ]
-
-
-
